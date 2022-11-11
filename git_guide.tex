@@ -1,0 +1,180 @@
+\documentclass[11pt]{article}
+
+\usepackage{listings}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{fullpage}
+
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{blindtext}
+\usepackage{hyperref}
+
+\makeatother
+\newcommand{\nextdiv}{\vspace{2mm}\noindent}
+\newenvironment{important_def}[1]% environment name 
+{% begin code
+	\vspace{2mm}\leftskip1cm\relax\rightskip1cm\relax
+	\textbf{#1}\begin{itshape}% 
+}% 
+{\end{itshape}}% end code
+
+
+
+
+\title{A short guide to get started with \texttt{git} \\[2em] \small{last updated: \today}}
+\date{}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize\ttfamily,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Python,                 % the language of the code
+  otherkeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+\begin{document}
+\maketitle
+
+\section*{First time settings}
+
+\begin{lstlisting}
+git config --list --show-origin
+
+#unset helper login (mac)
+git config --local --unset credential.helper
+git config --global --unset credential.helper
+git config --system --unset credential.helper
+\end{lstlisting}
+
+rest all global settings
+
+\begin{lstlisting}
+git config --global --unset-all	
+\end{lstlisting}
+
+rest setting for a given repo
+\begin{lstlisting}
+git reset -hard
+git clean -fxd #check difference
+\end{lstlisting}
+
+
+\section*{Log-in into GitHub}
+
+Version control, also known as source control, is the practice of tracking and managing changes to software code. Using version control software is a best practice for high performing software and DevOps teams. Version control also helps developers move faster and allows software teams to preserve efficiency and agility as the team scales to include more developers.
+
+\section*{Managing authentication}
+
+You can set a \texttt{access token} following this link: \url{https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token}
+
+\section*{Installing git}
+
+\subsection*{MacOs}
+
+\begin{lstlisting}
+git --version # output should be git version 2.7.0 (Apple Git-66)
+\end{lstlisting}
+
+\nextdiv
+To log into GitHub simply point a web browser to https://github.com. A login screen will appear where the log-in process needs to be followed. If a new account is needed make sure you use credentials you will use to create an SSH key on your local machine. 
+
+\nextdiv
+We picked GitHub out of convenience. Other platforms are available including educational platforms (such as gitlab), however the commands are the same.
+
+\section*{Add SSH key}
+
+You can access and write data in repositories on GitHub.com using SSH (Secure Shell Protocol). When you connect via SSH, you authenticate using a private key file on your local machine. For more detailed info refer to this link: \url{https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account}
+
+\section*{Working with git repository}
+
+After SSH key is set, the steps below should set your identity \textit{locally}. Make sure the credentials are the same as those used setting the SSH key:
+
+\begin{lstlisting}
+git config --global user.name "<your git user name>"
+git config --global user.email "<your git email address>"
+\end{lstlisting}
+
+\nextdiv
+(Optional) To make Git remember your username and password when working with HTTPS repositories this step-by-step guide ca be followed \url{https://www.atlassian.com/git/tutorials/install-git#install-the-git-credential-osx}
+
+
+\nextdiv
+Create a repository inside the project's directory:
+
+\begin{lstlisting}
+cd gitlab_documentation
+git init
+touch README
+echo "some text for the" > README 
+git add README git commit -m 'first commit'  
+git remote add origin git@<repo link>  
+git push -u origin master # or any specific branch, more on this later.
+\end{lstlisting}
+
+\nextdiv
+Or, if the project exists inside a directory that is already under git control:
+
+\begin{lstlisting}
+cd existing_git_repo
+git remote add origin git@<repo link>
+git  push -u origin master
+\end{lstlisting}
+
+\section*{Contribution}
+\begin{lstlisting}
+git init <project directory>
+\end{lstlisting}
+
+cloning
+
+\begin{lstlisting}
+git clone <repo url>
+cd /path/to/project 
+echo "test content for git tutorial" >> CommitTest.txt 
+git add CommitTest.txt 
+git commit -m "added CommitTest.txt to the repo"
+\end{lstlisting}
+
+
+\section*{Working with branches}
+\begin{lstlisting}
+git branch    #shows all local branches
+git branch -r #shows remote branches, run this command
+git branch -a #shows all local and remote branches, run this command
+\end{lstlisting}
+
+\section*{Extras}
+
+\subsection*{Conda environment}
+
+Disable \texttt{conda} configuration setting to autostart \texttt{base} env:
+\begin{lstlisting}
+conda config --set auto_activate_base false
+\end{lstlisting}
+
+\end{document}
