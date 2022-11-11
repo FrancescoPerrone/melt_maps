@@ -69,6 +69,20 @@ git config --list --show-origin
 git config --local --unset credential.helper
 git config --global --unset credential.helper
 git config --system --unset credential.helper
+
+#branching
+git checkout -b <new-branch>
+#or
+git checkout -b <new-branch> <existing-branch>
+
+git checkout -b <branch>
+#Edit files, add and commit. 
+#Then push with the -u (short for --set-upstream) option:
+git push -u origin <branch>
+
+$ git checkout master
+#Switched to branch 'master'
+(master)$
 \end{lstlisting}
 
 rest all global settings
