@@ -10,7 +10,7 @@ A file dedicated to store declared constant properties for error management.
 """
 
 # Could be done for folder and file in a separated way.
-err = {
+err_l = {
     "NO_FOLDER_FOUND":  "NO_FOLDER_FOUND_DES",
     "NO_FOLDER_FOUND_DES": "There is no folder with this name, or no folder found"
 }
