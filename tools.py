@@ -70,7 +70,7 @@ def init_file():
     return file_list
 
 
-def compute_bic(kmeans,data_points):
+def elbow_bic(kmeans,data_points):
     """
     A function to compute the BIC for a given clusters,
     in terms of k.
@@ -109,3 +109,26 @@ def compute_bic(kmeans,data_points):
              ((n[i] - 1) * d/ 2) for i in range(m)]) - const_term
 
     return(BIC)
+
+
+def bic(y_true, y_pred, p):
+    """
+    A function to compute the bayesian information criterion.
+    @author: Joshua Franz Einsle
+
+    Parameters:
+    ----------
+    p           :  number of model parameters
+    y_true      :  
+    y_pred      :
+
+
+    Returns:
+    ---------
+    BIC value
+    """
+
+    # where is matrics coming from?
+    mse = metrics.mean_squared_error(y_true, y_pred)
+    n = len(y_true)
+    return n * np.log(mse) + p * np.log(n)
