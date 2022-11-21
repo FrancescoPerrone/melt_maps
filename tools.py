@@ -132,4 +132,5 @@ def bic(y_true, y_pred, p):
     # metrics is a sublibrary of sklearn 
     mse = metrics.mean_squared_error(y_true, y_pred)
     n = len(y_true)
+    #a number for any given value
     return n * np.log(mse) + p * np.log(n)
