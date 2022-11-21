@@ -129,6 +129,7 @@ def bic(y_true, y_pred, p):
     """
 
     # where is matrics coming from?
+    # metrics is a sublibrary of sklearn 
     mse = metrics.mean_squared_error(y_true, y_pred)
     n = len(y_true)
     return n * np.log(mse) + p * np.log(n)
